@@ -61,5 +61,6 @@
 	"lint-staged": {
 		"*.{js,css,md,ts,tsx}": "prettier --write --ignore-unknown",
 		"*.{js,css,md}": "prettier --write"
-	}
+	},
+	"homepage": "https://biglollipop.github.io/toy/"
 }

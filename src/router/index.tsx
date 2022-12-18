@@ -1,8 +1,12 @@
 import React, { lazy, Suspense, ReactNode } from 'react'
-import { IndexRouteObject, NonIndexRouteObject } from 'react-router-dom'
+import {
+	IndexRouteObject,
+	NonIndexRouteObject,
+	createBrowserRouter
+} from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons'
 import { Spin } from 'antd'
-
+import App from '../App'
 const Dashboard = lazy(() => import('../views/Dashboard'))
 
 const lazyLoad = (component: ReactNode): ReactNode => {
@@ -16,6 +20,7 @@ interface MenuArray {
 	name?: string
 	icon?: JSX.Element
 	meneId: number | string
+	children?: RouteObject[]
 }
 type ResetIndexRouteObject = MenuArray & IndexRouteObject
 type ResetNonIndexRouteObject = MenuArray & NonIndexRouteObject
@@ -23,13 +28,25 @@ export declare type RouteObject =
 	| ResetIndexRouteObject
 	| ResetNonIndexRouteObject
 
-const routes: RouteObject[] = [
+const routes = createBrowserRouter(
+	[
+		{
+			path: '/',
+			element: <App />,
+			children: [
+				{
+					name: 'dashboard',
+					path: '/dashboard',
+					meneId: 1,
+					icon: <UserOutlined />,
+					element: lazyLoad(<Dashboard />)
+				}
+			]
+		}
+	] as RouteObject[],
 	{
-		name: 'dashboard',
-		path: '/',
-		meneId: 1,
-		icon: <UserOutlined />,
-		element: lazyLoad(<Dashboard />)
+		basename: '/toy'
 	}
-]
+)
+
 export default routes
