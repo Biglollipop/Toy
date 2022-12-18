@@ -1,16 +1,22 @@
 import React from 'react'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import logo from './logo.svg'
-import './App.css'
-
-// import LikeButton from './components/LikeButtons'
+import { useRoutes } from 'react-router-dom'
+import './styles/index.scss'
+import routes from './router'
+import { ConfigProvider } from 'antd'
 
 function App() {
+	const element = useRoutes(routes)
+
 	return (
-		<div className="App">
-			{/* <LikeButton /> */}
-			<h1>hello world</h1>
-		</div>
+		<ConfigProvider
+			theme={{
+				token: {
+					colorPrimary: '#00b96b'
+				}
+			}}
+		>
+			{element}
+		</ConfigProvider>
 	)
 }
 
